@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="row mnt-5"></div>
+		<div class="col-2">
+			<a class="btn btn-outline-success" href="/">
+				<i class="bi bi-plus-square-fill"></i> back
+			</a>
+		</div>
+		<div class="coll-6">
+			<h2>add a new job proposal</h2>
+			<form action="#" th:action="@{/jobproposal/create}" th:object="${jobProposal}" method="post">
+				<div class="form-group">
+					<label for="description">Description</label>
+					<input class="form-control" type="text" th:field="*{description}" id="description"
+						placeholder="Description">
+					<label for="code">Code</label>
+					<input class="form-control" type="text" th:field="*{code}" id="code"
+						placeholder="Code">
+					<button type="submit" class="btn btn-outline-success">
+						<i class="bi bi-plus-square-fill"></i> add job proposal
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}"></script>
+</body>
+
+</html>

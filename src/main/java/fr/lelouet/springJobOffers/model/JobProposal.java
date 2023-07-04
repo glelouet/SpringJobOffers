@@ -38,4 +38,13 @@ public class JobProposal implements Serializable {
 	@UpdateTimestamp
 	private Instant updatedDate;
 
+	public void update(JobProposal source) {
+		if (source.getCode() != null) {
+			code = source.getCode();
+		}
+		if (source.getDescription() != null) {
+			description = source.getDescription();
+		}
+	}
+
 }

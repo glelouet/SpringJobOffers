@@ -1,4 +1,4 @@
-package fr.lelouet.springJobOffers.controllers;
+package fr.lelouet.springJobOffers.controllers.html;
 
 import java.time.Instant;
 
@@ -17,7 +17,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/jobproposal")
-public class JobProposalController {
+public class JobProposalHTML {
 
 	@Autowired
 	private JobProposalService jobProposalService;

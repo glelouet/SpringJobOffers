@@ -1,4 +1,4 @@
-package fr.lelouet.springJobOffers.controllers;
+package fr.lelouet.springJobOffers.controllers.html;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import fr.lelouet.springJobOffers.services.JobProposalService;
 
 @Controller
-public class IndexController {
+public class IndexHTML {
 
 	@Autowired
 	private JobProposalService jobProposalService;

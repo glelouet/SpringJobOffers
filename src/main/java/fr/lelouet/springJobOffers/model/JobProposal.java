@@ -13,11 +13,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @SuppressWarnings("serial")
 @Entity
 @Data
+@Builder
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class JobProposal implements Serializable {
 
 	@Id
@@ -31,6 +37,9 @@ public class JobProposal implements Serializable {
 
 	@Size(min = 0, max = 255)
 	private String description;
+
+	@Size(min = 0, max = 255)
+	private String entreprise;
 
 	@CreatedDate
 	private Instant createdDate;

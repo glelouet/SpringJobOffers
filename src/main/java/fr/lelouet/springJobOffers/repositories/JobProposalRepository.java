@@ -15,4 +15,6 @@ public interface JobProposalRepository extends JpaRepository<JobProposal, Long> 
 
 	Optional<JobProposal> findByCode(String code);
 
+	List<JobProposal> deleteByCode(String code);
+
 }

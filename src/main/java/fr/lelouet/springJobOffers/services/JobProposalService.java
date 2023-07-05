@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class JobProposalService {
 	@Autowired
 	private JobProposalRepository repository;
 
-	public List<JobProposal> getAll() {
-		return repository.findAll();
+	public List<JobProposal> all(Pageable paging) {
+		return paging == null ? repository.findAll() : repository.findAll(paging).getContent();
 	}
 
 	public Iterable<JobProposal> listByCode() {

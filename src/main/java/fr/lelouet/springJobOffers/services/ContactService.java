@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class ContactService {
 	@Autowired
 	private ContactRepository repository;
 
-	public List<Contact> getAll() {
-		return repository.findAll();
+	public List<Contact> all(Pageable paging) {
+		return paging == null ? repository.findAll() : repository.findAll(paging).getContent();
 	}
 
 	public Optional<Contact> getById(long id) {

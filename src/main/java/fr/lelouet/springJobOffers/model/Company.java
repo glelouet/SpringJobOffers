@@ -1,6 +1,8 @@
 package fr.lelouet.springJobOffers.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -44,6 +47,10 @@ public class Company {
 
 	@UpdateTimestamp
 	private Instant updatedDate;
+
+	@ManyToMany(mappedBy = "proposingCompany")
+	@Builder.Default
+	private List<JobProposal> proposes = new ArrayList<>();
 
 	public void update(Company data) {
 		if (data.mother != null) {

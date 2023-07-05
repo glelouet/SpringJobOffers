@@ -1,10 +1,9 @@
 package fr.lelouet.springJobOffers.services;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -54,22 +53,25 @@ public class ContactService {
 		return repository.findById(id);
 	}
 
+	public Optional<Contact> getByCode(String code) {
+		return repository.findByCode(code);
+	}
+
 	public Contact save(Contact data) {
-		if (data.getMailAddresses() != null) {
-			List<String> cleaned = new ArrayList<>();
-			for (String elem : data.getMailAddresses()) {
-				cleaned.add(elem);
-			}
-			cleaned.sort(Comparator.naturalOrder());
-			data.setMailAddresses(cleaned);
+		if (data.getMailAddresses() != null && !data.getMailAddresses().isEmpty()) {
+			data.setMailAddresses(data.getMailAddresses().stream()
+					.filter(e -> e != null)
+					.sorted()
+					.distinct()
+					.collect(Collectors.toList()));
 		}
-		if (data.getPhoneNumbers() != null) {
-			List<String> cleaned = new ArrayList<>();
-			for (String elem : data.getPhoneNumbers()) {
-				cleaned.add(standardizePhoneNumber(elem));
-			}
-			cleaned.sort(Comparator.naturalOrder());
-			data.setPhoneNumbers(cleaned);
+		if (data.getPhoneNumbers() != null && !data.getPhoneNumbers().isEmpty()) {
+			data.setPhoneNumbers(data.getPhoneNumbers().stream()
+					.filter(e -> e != null)
+					.map(ContactService::standardizePhoneNumber)
+					.sorted()
+					.distinct()
+					.collect(Collectors.toList()));
 		}
 		if (data.getCode() == null) {
 			data.setCode(data.getTitle()

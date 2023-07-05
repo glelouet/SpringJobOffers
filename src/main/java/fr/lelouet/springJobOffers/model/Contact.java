@@ -1,8 +1,13 @@
 package fr.lelouet.springJobOffers.model;
 
+import java.time.Instant;
 import java.util.List;
 
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -36,9 +41,15 @@ public class Contact {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	@Column(unique = true)
+	@NotNull
+	@Size(min = 1, max = 255)
+	private String code;
+
 	@Size(min = 0, max = 255)
 	private String lastName;
 
+	@NotNull
 	@Size(min = 0, max = 255)
 	private String firstName;
 
@@ -55,6 +66,12 @@ public class Contact {
 	@CollectionTable(name = "contact_mail_address", joinColumns = @JoinColumn(name = "contact_id"))
 	@OrderColumn
 	private List<@Email String> mailAddresses;
+
+	@CreatedDate
+	private Instant createdDate;
+
+	@UpdateTimestamp
+	private Instant updatedDate;
 
 	public void update(Contact data) {
 		if (data.firstName != null) {

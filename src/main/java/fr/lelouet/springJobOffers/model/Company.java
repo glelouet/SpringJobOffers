@@ -1,9 +1,6 @@
 package fr.lelouet.springJobOffers.model;
 
-import java.io.Serializable;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,13 +18,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-@SuppressWarnings("serial")
 @Entity
 @Data
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class JobProposal implements Serializable {
+public class Company {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,11 +34,10 @@ public class JobProposal implements Serializable {
 	@Size(min = 1, max = 255)
 	private String code;
 
-	@Size(min = 0, max = 255)
-	private String description;
+	private String name;
 
-	@Size(min = 0, max = 255)
-	private String entreprise;
+	@ManyToOne
+	private Company mother;
 
 	@CreatedDate
 	private Instant createdDate;
@@ -50,22 +45,13 @@ public class JobProposal implements Serializable {
 	@UpdateTimestamp
 	private Instant updatedDate;
 
-	public void update(JobProposal source) {
-		if (source.getCode() != null) {
-			code = source.getCode();
+	public void update(Company data) {
+		if (data.mother != null) {
+			mother = data.mother;
 		}
-		if (source.getDescription() != null) {
-			description = source.getDescription();
+		if (data.name != null) {
+			name = data.name;
 		}
 	}
-
-	@ManyToMany
-	@Builder.Default
-	private List<Company> proposingCompany = new ArrayList<>();
-
-	@ManyToMany
-	@Builder.Default
-	private List<Contact> proposingContact = new ArrayList<>();
-
 
 }

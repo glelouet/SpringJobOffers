@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import fr.lelouet.springJobOffers.model.JobProposal;
+import fr.lelouet.springJobOffers.model.Company;
 
 @Repository
-public interface JobProposalRepository extends JpaRepository<JobProposal, Long> {
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 
-	List<JobProposal> findAllByOrderByCodeAsc();
+	List<Company> findByNameContainingIgnoreCase(String name);
 
-	Optional<JobProposal> findByCode(String code);
+	Optional<Company> findByCode(String code);
 
 	void deleteByCode(String code);
 

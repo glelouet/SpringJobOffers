@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +29,17 @@ public class JobProposalRest {
 
 	@GetMapping("")
 	List<JobProposal> all(
-			@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "100") Integer pageSize,
+			@RequestParam(required = false) Integer pageNo,
+			@RequestParam(required = false) Integer pageSize,
 			@RequestParam(defaultValue = "id") String sortBy,
-			@RequestParam(defaultValue = "true") Boolean asc) {
+			@RequestParam(required = false) Boolean desc) {
 		var sort = Sort.by(sortBy);
-		Pageable paging = PageRequest.of(pageNo, pageSize, asc ? sort.ascending() : sort.descending());
-		return service.all(paging);
+		sort = desc == Boolean.TRUE ? sort.descending() : sort.ascending();
+		if (pageSize != null || pageNo != null) {
+			return service.all(PageRequest.of(pageNo == null ? 0 : pageNo, pageSize == null ? 50 : pageSize, sort));
+		} else {
+			return service.all(sort);
+		}
 	}
 
 	@GetMapping("/byid/{id}")

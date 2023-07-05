@@ -28,10 +28,10 @@ public class SpringJobOffersApplication {
 			if (addData) {
 				// add job proposals
 				for (int i = 0; i < 5; i++) {
-					var jobProposal = new JobProposal();
-					jobProposal.setCode("jp" + i);
-					jobProposal.setDescription("Job Proposal " + i);
-					jobProposalService.save(jobProposal);
+					jobProposalService.save(JobProposal.builder()
+							.code("jp" + i)
+							.description("Job Proposal " + i)
+							.build());
 				}
 
 				// add contact
@@ -40,21 +40,21 @@ public class SpringJobOffersApplication {
 						.firstName("jean")
 						.lastName("dujean")
 						.mailAddresses(List.of("jeand@dujean.com"))
-						.phoneNumbers(List.of("0000000"))
+						.phoneNumbers(List.of("0199000101"))
 						.build());
 				contactService.save(Contact.builder()
 						.title(Title.Mr)
 						.firstName("Marc")
 						.lastName("l'avoine")
 						.mailAddresses(List.of("marc@lavoine.com"))
-						.phoneNumbers(List.of("0000001"))
+						.phoneNumbers(List.of("0261913712"))
 						.build());
 				contactService.save(Contact.builder()
 						.title(Title.Ms)
 						.firstName("Ursulle")
 						.lastName("dékøé")
 						.mailAddresses(List.of("ursulla@dekoe.com"))
-						.phoneNumbers(List.of("0000003"))
+						.phoneNumbers(List.of("0353019885"))
 						.build());
 			}
 		};

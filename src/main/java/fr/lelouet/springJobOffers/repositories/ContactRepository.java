@@ -1,6 +1,7 @@
 package fr.lelouet.springJobOffers.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,9 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
 	List<Contact> findByPhoneNumbers(String number);
 
 	List<Contact> findByMailAddresses(String mail);
+
+	Optional<Contact> findByCode(String code);
+
+	void deleteByCode(String code);
 
 }

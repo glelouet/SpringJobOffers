@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,16 @@ public class JobProposalService {
 	@Autowired
 	private JobProposalRepository repository;
 
+	public List<JobProposal> all() {
+		return repository.findAll();
+	}
+
 	public List<JobProposal> all(Pageable paging) {
-		return paging == null ? repository.findAll() : repository.findAll(paging).getContent();
+		return paging == null ? all() : repository.findAll(paging).getContent();
+	}
+
+	public List<JobProposal> all(Sort sort) {
+		return sort == null ? all() : repository.findAll(sort);
 	}
 
 	public Iterable<JobProposal> listByCode() {
@@ -62,6 +71,11 @@ public class JobProposalService {
 	}
 
 	public JobProposal save(JobProposal data) {
+		if (data.getCode() == null) {
+			data.setCode(
+					Optional.ofNullable(data.getEntreprise()).orElse("").replaceAll("\\s+", "_").toUpperCase()
+					+ "_" + Optional.ofNullable(data.getDescription()).orElse("").replaceAll("\\s+", "_").toUpperCase());
+		}
 		if (data.getId() == null) {
 			data.setCreatedDate(Instant.now());
 		}

@@ -6,28 +6,24 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.lelouet.springJobOffers.model.Contact;
-import fr.lelouet.springJobOffers.services.ContactService;
+import fr.lelouet.springJobOffers.model.Company;
+import fr.lelouet.springJobOffers.services.CompanyService;
 
 @RestController
-@RequestMapping("/api/contact")
-public class ContactRest {
+@RequestMapping("/api/company")
+public class CompanyRest {
 
 	@Autowired
-	private ContactService service;
+	private CompanyService service;
 
 	@GetMapping("")
-	List<Contact> all(
+	List<Company> all(
 			@RequestParam(required = false) Integer pageNo,
 			@RequestParam(required = false) Integer pageSize,
 			@RequestParam(defaultValue = "id") String sortBy,
@@ -42,33 +38,13 @@ public class ContactRest {
 	}
 
 	@GetMapping("/byid/{id}")
-	Optional<Contact> bydId(@PathVariable long id) {
+	Optional<Company> bydId(@PathVariable long id) {
 		return service.getById(id);
 	}
 
 	@GetMapping("/search/name/{str}")
-	List<Contact> search(@PathVariable String str) {
+	List<Company> search(@PathVariable String str) {
 		return service.searchName(str);
-	}
-
-	@GetMapping("/search/phonenumber/{num}")
-	List<Contact> byPhoneNumber(@PathVariable String num) {
-		return service.searchPhoneNumber(num);
-	}
-
-	@GetMapping("/search/mail/{mail}")
-	List<Contact> byMail(@PathVariable String mail) {
-		return service.searchMail(mail);
-	}
-
-	@PostMapping("")
-	ResponseEntity<?> createOrUpdate(@RequestBody Contact data) {
-		return service.createOrUpdate(data);
-	}
-
-	@DeleteMapping("/byid/{id}")
-	void deleteById(@PathVariable Long id) {
-		service.deleteById(id);
 	}
 
 }

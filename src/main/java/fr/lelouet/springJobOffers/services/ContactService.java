@@ -73,11 +73,6 @@ public class ContactService {
 					.distinct()
 					.collect(Collectors.toList()));
 		}
-		if (data.getCode() == null) {
-			data.setCode(data.getTitle()
-					+ "_" + Optional.ofNullable(data.getFirstName()).orElse("").replaceAll("\\s+", "").toUpperCase()
-					+ "_" + Optional.ofNullable(data.getLastName()).orElse("").replaceAll("\\s+", "").toUpperCase());
-		}
 		if (data.getId() == null) {
 			data.setCreatedDate(Instant.now());
 		}

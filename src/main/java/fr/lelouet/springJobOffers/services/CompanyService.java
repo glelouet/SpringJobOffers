@@ -37,6 +37,10 @@ public class CompanyService {
 		return repository.findById(id);
 	}
 
+	public Optional<Company> getByCode(String code) {
+		return repository.findByCode(code);
+	}
+
 	@Transactional
 	public void delete(Company data) {
 		repository.delete(data);
@@ -65,9 +69,6 @@ public class CompanyService {
 	}
 
 	public Company save(Company data) {
-		if (data.getCode() == null) {
-			data.setCode(data.getName().replaceAll("\\s+", "_").toUpperCase());
-		}
 		return repository.save(data);
 	}
 

@@ -31,11 +31,13 @@ public class SpringJobOffersApplication {
 					jobProposalService.save(JobProposal.builder()
 							.code("jp" + i)
 							.description("Job Proposal " + i)
+							.enterprise("e_" + i)
 							.build());
 				}
 
 				// add contact
 				contactService.save(Contact.builder()
+						.code("JEAN_DUJEAN")
 						.title(Title.Mr)
 						.firstName("jean")
 						.lastName("dujean")
@@ -43,6 +45,7 @@ public class SpringJobOffersApplication {
 						.phoneNumbers(List.of("0199000101"))
 						.build());
 				contactService.save(Contact.builder()
+						.code("MARC_LAVOINE")
 						.title(Title.Mr)
 						.firstName("Marc")
 						.lastName("l'avoine")
@@ -50,6 +53,7 @@ public class SpringJobOffersApplication {
 						.phoneNumbers(List.of("0261913712"))
 						.build());
 				contactService.save(Contact.builder()
+						.code("URSU_LA")
 						.title(Title.Ms)
 						.firstName("Ursulle")
 						.lastName("dékøé")

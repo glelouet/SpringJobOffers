@@ -71,11 +71,6 @@ public class JobProposalService {
 	}
 
 	public JobProposal save(JobProposal data) {
-		if (data.getCode() == null) {
-			data.setCode(
-					Optional.ofNullable(data.getEntreprise()).orElse("").replaceAll("\\s+", "_").toUpperCase()
-					+ "_" + Optional.ofNullable(data.getDescription()).orElse("").replaceAll("\\s+", "_").toUpperCase());
-		}
 		if (data.getId() == null) {
 			data.setCreatedDate(Instant.now());
 		}

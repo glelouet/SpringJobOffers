@@ -42,7 +42,7 @@ public class JobProposal implements Serializable {
 	private String description;
 
 	@Size(min = 0, max = 255)
-	private String entreprise;
+	private String enterprise;
 
 	@CreatedDate
 	private Instant createdDate;

@@ -4,56 +4,19 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import fr.lelouet.springJobOffers.model.Company;
 import fr.lelouet.springJobOffers.repositories.CompanyRepository;
-import jakarta.transaction.Transactional;
 
 @Service
-public class CompanyService {
-
-	@Autowired
-	private CompanyRepository repository;
-
-	public List<Company> all() {
-		return repository.findAll();
-	}
-
-	public List<Company> all(Pageable paging) {
-		return paging == null ? all() : repository.findAll(paging).getContent();
-	}
-
-	public List<Company> all(Sort sort) {
-		return sort == null ? all() : repository.findAll(sort);
-	}
-
-	public Optional<Company> getById(long id) {
-		return repository.findById(id);
-	}
-
-	public Optional<Company> getByCode(String code) {
-		return repository.findByCode(code);
-	}
-
-	@Transactional
-	public void delete(Company data) {
-		repository.delete(data);
-	}
-
-	@Transactional
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+public class CompanyService extends CodedDatedEService<Company, CompanyRepository> {
 
 	public ResponseEntity<?> createOrUpdate(Company data) {
 		if (data.getId() != null) {
-			Optional<Company> optData = repository.findById(data.getId());
+			Optional<Company> optData = getRepository().findById(data.getId());
 			if (optData.isEmpty()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
@@ -68,12 +31,8 @@ public class CompanyService {
 		return ResponseEntity.ok(save(data));
 	}
 
-	public Company save(Company data) {
-		return repository.save(data);
-	}
-
 	public List<Company> searchName(String str) {
-		return repository.findByNameContainingIgnoreCase(str);
+		return getRepository().findByNameContainingIgnoreCase(str);
 	}
 
 }

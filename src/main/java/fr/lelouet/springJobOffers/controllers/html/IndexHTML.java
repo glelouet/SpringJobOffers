@@ -16,7 +16,7 @@ public class IndexHTML {
 	@GetMapping("/")
 	public ModelAndView index() {
 		var modelAndView = new ModelAndView("index");
-		modelAndView.addObject("jobProposalItems", jobProposalService.listByCode());
+		modelAndView.addObject("jobProposalItems", jobProposalService.allByCode());
 		return modelAndView;
 	}
 

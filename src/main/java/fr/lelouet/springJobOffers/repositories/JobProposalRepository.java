@@ -1,20 +1,14 @@
 package fr.lelouet.springJobOffers.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import fr.lelouet.springJobOffers.model.JobProposal;
 
 @Repository
-public interface JobProposalRepository extends JpaRepository<JobProposal, Long> {
+public interface JobProposalRepository extends CodedDatedERepo<JobProposal> {
 
 	List<JobProposal> findAllByOrderByCodeAsc();
-
-	Optional<JobProposal> findByCode(String code);
-
-	void deleteByCode(String code);
 
 }

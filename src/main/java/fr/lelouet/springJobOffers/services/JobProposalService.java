@@ -1,11 +1,13 @@
 package fr.lelouet.springJobOffers.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import fr.lelouet.springJobOffers.model.Company;
 import fr.lelouet.springJobOffers.model.JobProposal;
 import fr.lelouet.springJobOffers.repositories.JobProposalRepository;
 
@@ -35,6 +37,10 @@ public class JobProposalService extends CodedDatedEService<JobProposal, JobPropo
 			save(updated);
 			return ResponseEntity.ok(updated);
 		}
+	}
+
+	public List<JobProposal> findByProposingCompany(Company c) {
+		return getRepository().findAllByProposingCompany(c);
 	}
 
 }

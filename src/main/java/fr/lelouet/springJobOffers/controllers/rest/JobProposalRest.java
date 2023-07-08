@@ -1,5 +1,6 @@
 package fr.lelouet.springJobOffers.controllers.rest;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.lelouet.springJobOffers.model.Company;
 import fr.lelouet.springJobOffers.model.JobProposal;
 import fr.lelouet.springJobOffers.model.dto.CodedEntityDTO;
 import fr.lelouet.springJobOffers.model.dto.JobProposalOutDTO;
+import fr.lelouet.springJobOffers.services.CompanyService;
 import fr.lelouet.springJobOffers.services.JobProposalService;
 
 @RestController
@@ -30,6 +33,9 @@ public class JobProposalRest {
 
 	@Autowired
 	private JobProposalService service;
+
+	@Autowired
+	private CompanyService companyService;
 
 	@GetMapping("")
 	List<JobProposalOutDTO> all(
@@ -60,6 +66,20 @@ public class JobProposalRest {
 	@GetMapping("/bycode/{code}")
 	Optional<JobProposal> byCode(@PathVariable String code) {
 		return service.getByCode(code);
+	}
+
+	@GetMapping("/bycompany/{code}")
+	List<JobProposalOutDTO> byProposingCompanyCode(@PathVariable String code) {
+		Optional<Company> opt = companyService.getByCode(code);
+		if (opt == null || opt.isEmpty()) {
+			return Collections.emptyList();
+		}
+		ModelMapper map = new ModelMapper();
+		map.getConfiguration().setSkipNullEnabled(true);
+		return service.findByProposingCompany(opt.get())
+				.stream()
+				.map(c -> map.map(c, JobProposalOutDTO.class))
+				.collect(Collectors.toList());
 	}
 
 	@PostMapping("")

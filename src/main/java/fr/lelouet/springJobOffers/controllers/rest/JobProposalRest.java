@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.lelouet.springJobOffers.model.JobProposal;
+import fr.lelouet.springJobOffers.model.dto.CodedEntityDTO;
 import fr.lelouet.springJobOffers.model.dto.JobProposalOutDTO;
 import fr.lelouet.springJobOffers.services.JobProposalService;
 
@@ -82,6 +83,40 @@ public class JobProposalRest {
 	@DeleteMapping("/byid/{id}")
 	void deleteById(@PathVariable Long id) {
 		service.deleteById(id);
+	}
+
+	@GetMapping("/bycode/{code}/proposingcompany")
+	ResponseEntity<?> proposingCompaniesByCode(@PathVariable String code) {
+		return proposingCompanies(service.getByCode(code));
+	}
+
+	ResponseEntity<?> proposingCompanies(Optional<JobProposal> opt) {
+		if (opt == null || opt.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("job proposal not found");
+		}
+		JobProposal jp = opt.get();
+		ModelMapper map = new ModelMapper();
+		return ResponseEntity.ok(jp.getProposingCompany()
+				.stream()
+				.map(cp -> map.map(cp, CodedEntityDTO.class))
+				.collect(Collectors.toList()));
+	}
+
+	@GetMapping("/bycode/{code}/proposingcontacts")
+	ResponseEntity<?> proposingContactsByCode(@PathVariable String code) {
+		return proposingContacts(service.getByCode(code));
+	}
+
+	ResponseEntity<?> proposingContacts(Optional<JobProposal> opt) {
+		if (opt == null || opt.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("job proposal not found");
+		}
+		JobProposal jp = opt.get();
+		ModelMapper map = new ModelMapper();
+		return ResponseEntity.ok(jp.getProposingContact()
+				.stream()
+				.map(cp -> map.map(cp, CodedEntityDTO.class))
+				.collect(Collectors.toList()));
 	}
 
 }

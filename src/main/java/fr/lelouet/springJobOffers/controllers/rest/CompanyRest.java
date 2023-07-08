@@ -93,15 +93,18 @@ public class CompanyRest {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("job not found");
 		}
 		Company cp = opt1.get();
+		Long cpId = cp.getId();
 		JobProposal jp = opt2.get();
 		List<Company> cpl = jp.getProposingCompany();
 		if (cpl == null) {
 			cpl = new ArrayList<>();
 			jp.setProposingCompany(cpl);
 		}
-		if (!cpl.contains(cp)) {
+
+		if (cpl.stream().map(Company::getId).filter(l -> l != null && l.equals(cpId)).findAny().isEmpty()) {
 			cpl.add(cp);
 			jobProposalService.save(jp);
+			cp = service.getById(cpId).get();
 		}
 		ModelMapper map = new ModelMapper();
 		return ResponseEntity.ok(cp.getProposes()

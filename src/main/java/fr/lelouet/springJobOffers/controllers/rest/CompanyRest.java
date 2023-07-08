@@ -92,16 +92,16 @@ public class CompanyRest {
 		if (opt2.isEmpty()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("job not found");
 		}
-		var cp = opt1.get();
-		var jp = opt2.get();
-		var prp = cp.getProposes();
-		if (prp == null) {
-			prp = new ArrayList<>();
-			cp.setProposes(prp);
+		Company cp = opt1.get();
+		JobProposal jp = opt2.get();
+		List<Company> cpl = jp.getProposingCompany();
+		if (cpl == null) {
+			cpl = new ArrayList<>();
+			jp.setProposingCompany(cpl);
 		}
-		if (!prp.contains(jp)) {
-			prp.add(jp);
-			service.save(cp);
+		if (!cpl.contains(cp)) {
+			cpl.add(cp);
+			jobProposalService.save(jp);
 		}
 		ModelMapper map = new ModelMapper();
 		return ResponseEntity.ok(cp.getProposes()

@@ -13,7 +13,7 @@ public interface CodedDatedERepo<T extends CodedDatedEntity> extends JpaReposito
 
 	Optional<T> findByCode(String code);
 
-	void deleteByCode(String code);
+	Long deleteByCode(String code);
 
 	List<T> findAllByOrderByCodeAsc();
 

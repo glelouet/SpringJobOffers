@@ -22,7 +22,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class CodedDatedEntity {
+public abstract class CodedDatedEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

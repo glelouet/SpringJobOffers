@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import fr.lelouet.springJobOffers.model.Company;
 import fr.lelouet.springJobOffers.repositories.CompanyRepository;
+import fr.lelouet.springJobOffers.services.generic.CodedDatedEService;
 
 @Service
 public class CompanyService extends CodedDatedEService<Company, CompanyRepository> {

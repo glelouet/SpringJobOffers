@@ -1,4 +1,4 @@
-package fr.lelouet.springJobOffers.services;
+package fr.lelouet.springJobOffers.services.generic;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,14 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import fr.lelouet.springJobOffers.model.CodedDatedEntity;
-import fr.lelouet.springJobOffers.repositories.CodedDatedERepo;
+import fr.lelouet.springJobOffers.model.generic.DatedEntity;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 
 @Getter
-public abstract class CodedDatedEService<T extends CodedDatedEntity, U extends CodedDatedERepo<T>> {
+public class DatedEService<T extends DatedEntity, U extends JpaRepository<T, Long>> {
 
 	@Autowired
 	private U repository;
@@ -30,16 +30,8 @@ public abstract class CodedDatedEService<T extends CodedDatedEntity, U extends C
 		return sort == null ? all() : repository.findAll(sort);
 	}
 
-	public List<T> allByCode() {
-		return repository.findAllByOrderByCodeAsc();
-	}
-
 	public Optional<T> getById(long id) {
 		return repository.findById(id);
-	}
-
-	public Optional<T> getByCode(String code) {
-		return repository.findByCode(code);
 	}
 
 	@Transactional
@@ -50,11 +42,6 @@ public abstract class CodedDatedEService<T extends CodedDatedEntity, U extends C
 	@Transactional
 	public void deleteById(Long id) {
 		repository.deleteById(id);
-	}
-
-	@Transactional
-	public void deleteByCode(String code) {
-		repository.deleteByCode(code);
 	}
 
 	public T save(T data) {

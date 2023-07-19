@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -s $(docker ps -f name="postgres-springjoboffers" -q) ]
+then
+	docker stop postgres-springjoboffers
+fi
+if [ ! -s $(docker ps -a -f name="postgres-springjoboffers" -q) ]
+then
+	docker rm postgres-springjoboffers
+fi

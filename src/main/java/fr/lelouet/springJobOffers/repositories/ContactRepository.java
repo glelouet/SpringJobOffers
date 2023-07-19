@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import fr.lelouet.springJobOffers.model.Contact;
+import fr.lelouet.springJobOffers.repositories.generic.CodedDatedERepo;
 
 @Repository
 public interface ContactRepository extends CodedDatedERepo<Contact> {

@@ -3,6 +3,7 @@ package fr.lelouet.springJobOffers.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.lelouet.springJobOffers.model.generic.CodedDatedEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToMany;

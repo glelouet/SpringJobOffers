@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,13 +21,14 @@ import fr.lelouet.springJobOffers.services.ContactService;
 import fr.lelouet.springJobOffers.services.JobProposalService;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class SpringJobOffersApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJobOffersApplication.class, args);
 	}
 
-	boolean addData = true;
+	boolean addData = false;
 	@Bean
 	public CommandLineRunner initDB(JobProposalService jobProposalService,
 			ContactService contactService) {
@@ -77,18 +79,21 @@ public class SpringJobOffersApplication {
 				.password("admin")
 				.roles("USER")
 				.build();
-
 		return new InMemoryUserDetailsManager(user);
 	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeHttpRequests((requests) -> requests
-						.requestMatchers("/", "/home").permitAll()
-						.anyRequest().authenticated())
-				.formLogin((form) -> form.loginPage("/login").permitAll())
-				.logout((logout) -> logout.permitAll())
+		.csrf(csrf->{csrf.disable();})
+		.cors(cors->{cors.disable();})
+		.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/", "/home").permitAll()
+				.anyRequest().authenticated())
+		.formLogin((form) -> form.loginPage("/login").permitAll())
+		.logout((logout) -> logout.permitAll())
+		.httpBasic(basics -> {
+		})
 		;
 		return http.build();
 	}

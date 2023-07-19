@@ -2,6 +2,7 @@ package fr.lelouet.springJobOffers.model;
 
 import java.util.List;
 
+import fr.lelouet.springJobOffers.model.generic.CodedDatedEntity;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;

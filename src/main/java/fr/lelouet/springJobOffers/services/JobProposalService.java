@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import fr.lelouet.springJobOffers.model.Company;
 import fr.lelouet.springJobOffers.model.JobProposal;
 import fr.lelouet.springJobOffers.repositories.JobProposalRepository;
+import fr.lelouet.springJobOffers.services.generic.CodedDatedEService;
 
 @Service
 public class JobProposalService extends CodedDatedEService<JobProposal, JobProposalRepository> {
@@ -42,5 +43,4 @@ public class JobProposalService extends CodedDatedEService<JobProposal, JobPropo
 	public List<JobProposal> findByProposingCompany(Company c) {
 		return getRepository().findAllByProposingCompany(c);
 	}
-
 }

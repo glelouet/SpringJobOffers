@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --name postgres-springjoboffers -e POSTGRES_DB=springjoboffers -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -d -p 5432:5432 postgres:alpine

@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-
 public class CompanyOutDTO extends CodedEntityDTO {
 
 	private String name;

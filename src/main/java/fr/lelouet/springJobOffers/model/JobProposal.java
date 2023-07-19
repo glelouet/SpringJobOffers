@@ -6,6 +6,7 @@ import java.util.List;
 import fr.lelouet.springJobOffers.model.generic.CodedDatedEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class JobProposal extends CodedDatedEntity {
 
-	@Size(min = 0, max = 255)
+	@Lob
 	private String description;
 
 	@Size(min = 0, max = 255)

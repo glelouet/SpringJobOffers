@@ -1,49 +1,47 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="utf-8">
-<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
-</head>
+<head th:replace="~{fragments/menu :: head}" ></head>
 <body>
+	<div th:replace="~{fragments/menu :: header}" ></div>
 	<div class="container">
-		<h1>Job offers</h1>
+<!-- 		<h1>Job offers</h1> -->
 		<hr />
 
-		<table class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th>Actions</th>
-					<th>Id</th>
-					<th>Code</th>
-					<th>Description</th>
-					<th>created</th>
-					<th>Updated</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="item : ${jobProposalItems}">
-					<td>
-						<div class="btn btn-group-sm" role="group">
-							<a class="btn btn-info" th:href="@{/jobproposal/{id}(id=${item.id})}">
-							<i class="bi bi-pencil-fill"></i>Edit</a>
-							<a class="btn btn-danger" th:href="@{/jobproposal/{id}/delete(id=${item.id})}">
-							<i class="bi bi-trash-fill"></i>Delete</a>
-						</div>
-					</td>
-					<td th:text="${item.id}"></td>
-					<td th:text="${item.code}"></td>
-					<td th:text="${item.description}"></td>
-					<td th:text="${item.createdDate}"></td>
-					<td th:text="${item.updatedDate}"></td>
-				</tr>
-			</tbody>
-		</table>
-		<p>
-			<a class="btn btn-outline-success" href="/jobproposal/create">
-				<i class="bi bi-plus-square-fill"></i> create a job offer
-			</a>
-		</p>
+<!-- 		<table class="table table-bordered table-striped"> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th>Actions</th> -->
+<!-- 					<th>Id</th> -->
+<!-- 					<th>Code</th> -->
+<!-- 					<th>Description</th> -->
+<!-- 					<th>created</th> -->
+<!-- 					<th>Updated</th> -->
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr th:each="item : ${jobProposalItems}"> -->
+<!-- 					<td> -->
+<!-- 						<div class="btn btn-group-sm" role="group"> -->
+<!-- 							<a class="btn btn-info" th:href="@{/jobproposal/{id}(id=${item.id})}"> -->
+<!-- 							<i class="bi bi-pencil-fill"></i>Edit</a> -->
+<!-- 							<a class="btn btn-danger" th:href="@{/jobproposal/{id}/delete(id=${item.id})}"> -->
+<!-- 							<i class="bi bi-trash-fill"></i>Delete</a> -->
+<!-- 						</div> -->
+<!-- 					</td> -->
+<!-- 					<td th:text="${item.id}"></td> -->
+<!-- 					<td th:text="${item.code}"></td> -->
+<!-- 					<td th:text="${item.description}"></td> -->
+<!-- 					<td th:text="${item.createdDate}"></td> -->
+<!-- 					<td th:text="${item.updatedDate}"></td> -->
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+<!-- 		<p> -->
+<!-- 			<a class="btn btn-outline-success" href="/jobproposal/create"> -->
+<!-- 				<i class="bi bi-plus-square-fill"></i> create a job offer -->
+<!-- 			</a> -->
+<!-- 		</p> -->
 	</div>
-	<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.min.js}"></script>
+	<div th:replace="~{fragments/menu :: footer}"></div>
 </body>
 </html>

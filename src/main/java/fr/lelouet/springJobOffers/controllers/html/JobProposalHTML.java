@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import fr.lelouet.springJobOffers.model.JobProposal;
 import fr.lelouet.springJobOffers.services.JobProposalService;
@@ -21,6 +22,13 @@ public class JobProposalHTML {
 
 	@Autowired
 	private JobProposalService jobProposalService;
+
+	@GetMapping("/")
+	public ModelAndView index() {
+		var modelAndView = new ModelAndView("jobproposal/index");
+		modelAndView.addObject("jobProposalItems", jobProposalService.allByCode());
+		return modelAndView;
+	}
 
 	@GetMapping("create")
 	public String create(JobProposal jobProposal) {

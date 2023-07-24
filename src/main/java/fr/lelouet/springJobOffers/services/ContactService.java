@@ -11,24 +11,11 @@ import org.springframework.stereotype.Service;
 import fr.lelouet.springJobOffers.model.Contact;
 import fr.lelouet.springJobOffers.repositories.ContactRepository;
 import fr.lelouet.springJobOffers.services.generic.CodedDatedEService;
+import fr.lelouet.springJobOffers.tools.PhoneNumberTools;
 
 @Service
 public class ContactService extends CodedDatedEService<Contact, ContactRepository> {
 
-	public static String standardizePhoneNumber(String number) {
-		if (number == null) {
-			return null;
-		}
-		number = number.replaceAll("\\s+", "");
-		switch (number.length()) {
-		case 10:
-			if (number.startsWith("0")) {
-				number = "+33" + number.substring(1);
-			}
-			break;
-		}
-		return number;
-	}
 
 	@Override
 	public Contact save(Contact data) {
@@ -42,7 +29,7 @@ public class ContactService extends CodedDatedEService<Contact, ContactRepositor
 		if (data.getPhoneNumbers() != null && !data.getPhoneNumbers().isEmpty()) {
 			data.setPhoneNumbers(data.getPhoneNumbers().stream()
 					.filter(e -> e != null)
-					.map(ContactService::standardizePhoneNumber)
+					.map(PhoneNumberTools::standardizePhoneNumber)
 					.sorted()
 					.distinct()
 					.collect(Collectors.toList()));
